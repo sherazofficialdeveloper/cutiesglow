@@ -85,7 +85,7 @@ export default function AboutPage() {
             </div>
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1596462502278-27d2d707c338?w=600&h=400&fit=crop"
+                src="/picur.png"
                 alt="About Cutish"
                 className="rounded-2xl shadow-lg w-full"
               />

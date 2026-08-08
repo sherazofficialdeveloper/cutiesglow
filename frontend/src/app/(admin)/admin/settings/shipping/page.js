@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '@/components/common/Input/Input';
 import Button from '@/components/common/Button/Button';
-import { adminService } from '@/services/adminService';
+import adminService from '@/services/adminService';
 
 export default function ShippingSettingsPage() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();

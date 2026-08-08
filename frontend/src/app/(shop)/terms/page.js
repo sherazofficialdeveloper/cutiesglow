@@ -1,4 +1,5 @@
 import React from 'react';
+import { colors } from '@/config/theme/colors'; // ✅ Added
 
 export default function TermsPage() {
   return (

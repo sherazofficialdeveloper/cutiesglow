@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import Input from '@/components/common/Input/Input';
 import Button from '@/components/common/Button/Button';
-import { authService } from '@/services/authService';
+import authService from '@/services/authService';
+import { colors } from '@/config/theme/colors'; // ✅ Added
 
 export default function ForgotPasswordPage() {
   const { register, handleSubmit, formState: { errors } } = useForm();
