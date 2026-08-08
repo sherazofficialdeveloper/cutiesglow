@@ -51,7 +51,7 @@ const BrandStory = () => {
 
             <div className="lg:col-span-5 flex justify-center items-center relative">
               <div className="relative w-full max-w-sm bg-white/60 backdrop-blur-xs p-4 rounded-3xl border border-rose-200/60 shadow-inner flex flex-col items-center justify-center overflow-hidden">
-                <img
+                <
                   src="/images/pic.jpg"
                   alt="Cutish 3-Minute Glow"
                   className="w-full h-auto rounded-2xl object-cover"
