@@ -259,7 +259,7 @@ const Footer = () => {
 
         <div style={bottomBarStyles}>
           <div style={bottomTextStyles}>
-            © {currentYear} Cutish by Razia's. Made with <Heart size={12} color={colors.primary} style={{ display: 'inline' }} /> for your skin.
+            © {currentYear} Cuties Glow. Made with <Heart size={12} color={colors.primary} style={{ display: 'inline' }} /> for your skin.
           </div>
           <div style={paymentStyles}>
             <span>Secure Payment</span>

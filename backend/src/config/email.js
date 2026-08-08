@@ -91,7 +91,7 @@ export const sendWelcomeEmail = async (user) => {
   const html = `
     <h1>Welcome to Cutish!</h1>
     <p>Hi ${user.name},</p>
-    <p>Thank you for registering with Cutish by Razia's.</p>
+    <p>Thank you for registering with Cuties Glow.</p>
     <p>Start exploring our premium skincare products and get 10% off your first order with code: WELCOME10</p>
     <p>Happy glowing!</p>
   `;

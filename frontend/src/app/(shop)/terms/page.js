@@ -8,7 +8,7 @@ export default function TermsPage() {
 
       <div className="mt-8 space-y-6 text-gray-600 leading-relaxed">
         <p>
-          By using the Cutish by Razia's website, you agree to the following terms and conditions.
+          By using the Cuties Glow website, you agree to the following terms and conditions.
         </p>
 
         <h2 className="text-2xl font-bold text-gray-900">Products and Pricing</h2>

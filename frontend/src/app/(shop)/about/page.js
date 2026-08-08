@@ -70,7 +70,7 @@ export default function AboutPage() {
                 About <span style={{ color: colors.primary }}>Cutish</span>
               </h1>
               <p className="text-lg text-gray-600 mt-4 leading-relaxed">
-                Cutish by Razia's is a premium skincare brand dedicated to providing natural, 
+                Cuties Glow is a premium skincare brand dedicated to providing natural, 
                 effective solutions for your daily glow routine. Our products are crafted with 
                 care using the finest ingredients to help you achieve healthy, radiant skin.
               </p>
@@ -138,7 +138,7 @@ export default function AboutPage() {
           />
           <div className="mt-8 space-y-6 text-gray-700 leading-relaxed text-center sm:text-left">
             <p>
-              Cutish by Razia's was born from a simple belief: that everyone deserves to feel 
+              Cuties Glow was born from a simple belief: that everyone deserves to feel 
               confident and beautiful in their own skin. Our founder, Razia, spent years 
               researching the best natural ingredients from around the world to create 
               skincare that truly works.

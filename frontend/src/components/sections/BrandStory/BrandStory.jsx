@@ -21,7 +21,7 @@ const BrandStory = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
-                Cutish by Razia's
+                Cuties Glow
                 <br />
                 <span style={{ color: colors.primary }}>Premium Skincare</span>
               </h2>
@@ -29,7 +29,7 @@ const BrandStory = () => {
                 Pakistan's trusted skincare brand — simple routine, fast results.
               </p>
               <p className="text-base sm:text-lg lg:text-xl font-bold text-gray-800 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                <strong className="text-gray-900 font-extrabold">Cutish by Razia's</strong> brings thoughtfully crafted skincare for every type. Our promise is simple: <span style={{ color: colors.primary }}>just 3 minutes</span> of easy routine, and your skin will look <span style={{ color: colors.primary }}>healthier, smoother</span> and naturally <span style={{ color: colors.primary }}>glowing</span>.
+                <strong className="text-gray-900 font-extrabold">Cuties Glow</strong> brings thoughtfully crafted skincare for every type. Our promise is simple: <span style={{ color: colors.primary }}>just 3 minutes</span> of easy routine, and your skin will look <span style={{ color: colors.primary }}>healthier, smoother</span> and naturally <span style={{ color: colors.primary }}>glowing</span>.
               </p>
               <div className="pt-2 flex justify-center lg:justify-start">
                 <span className="inline-flex items-center text-white px-6 py-2.5 rounded-full font-extrabold text-xs tracking-wider uppercase shadow-md" style={{ backgroundColor: colors.primary }}>

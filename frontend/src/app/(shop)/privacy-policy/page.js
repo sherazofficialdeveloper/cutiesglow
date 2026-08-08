@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
 
       <div className="mt-8 space-y-6 text-gray-600 leading-relaxed">
         <p>
-          At Cutish by Razia's, we take your privacy seriously. This privacy policy explains how we collect, use, and protect your personal information.
+          At Cuties Glow, we take your privacy seriously. This privacy policy explains how we collect, use, and protect your personal information.
         </p>
 
         <h2 className="text-2xl font-bold text-gray-900">Information We Collect</h2>
