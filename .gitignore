@@ -1,0 +1,174 @@
+# ============================================
+#  DEPENDENCIES
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ============================================
+#  ENVIRONMENT FILES
+# ============================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# ============================================
+#  BUILD OUTPUT
+# ============================================
+dist/
+build/
+.next/
+out/
+.nuxt/
+.cache/
+
+# ============================================
+#  LOGS & TEMP FILES
+# ============================================
+logs/
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# ============================================
+#  IDE / EDITOR
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.ftpconfig
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ============================================
+#  OS FILES
+# ============================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================
+#  COVERAGE / TESTING
+# ============================================
+coverage/
+.nyc_output/
+.console-history
+
+# ============================================
+#  UPLOADS / PUBLIC ASSETS (Local)
+# ============================================
+uploads/
+public/uploads/
+backend/uploads/
+
+# ============================================
+#  BACKEND SPECIFIC
+# ============================================
+backend/node_modules/
+backend/.env
+backend/.env.local
+backend/dist/
+backend/build/
+backend/logs/
+backend/uploads/
+
+# ============================================
+#  FRONTEND SPECIFIC
+# ============================================
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/.next/
+frontend/out/
+frontend/dist/
+frontend/build/
+frontend/.vercel/
+frontend/.netlify/
+
+# ============================================
+#  MONGODB DATA (Local)
+# ============================================
+/data/
+/mongodb-data/
+
+# ============================================
+#  REDIS DATA (Local)
+# ============================================
+/dump.rdb
+
+# ============================================
+#  MISCELLANEOUS
+# ============================================
+*.pem
+*.p12
+*.key
+*.crt
+*.csr
+*.der
+*.cer
+*.pkcs12
+*.pfx
+*.p7b
+*.p7c
+
+# ============================================
+#  NPM / YARN / PNPM
+# ============================================
+*.tgz
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# ============================================
+#  SECRETS
+# ============================================
+*.secret
+*.key
+.env.production
+.env.staging
+.secrets/
+credentials.json
+service-account.json
+
+# ============================================
+#  DATABASE
+# ============================================
+*.sqlite
+*.sqlite3
+*.db
+*.mdb
+*.accdb
+*.frm
+*.MYD
+*.MYI
+*.ibd
+
+# ============================================
+#  DOCKER
+# ============================================
+docker-compose.override.yml
+.dockerignore
+
+# ============================================
+#  NEXT.JS SPECIFIC
+# ============================================
+frontend/.next/
+frontend/out/
+frontend/.vercel/
+frontend/.netlify/
+frontend/next-env.d.ts
