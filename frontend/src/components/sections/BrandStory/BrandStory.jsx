@@ -54,10 +54,10 @@ const BrandStory = () => {
                 {/* ✅ FIXED: img tag sahi kiya */}
                 <img
                   src="/pic.png"
-                  alt="Cutish 3-Minute Glow"
+                  alt="CutiesGlow 3-Minute Glow"
                   className="w-full h-auto rounded-2xl object-cover"
                   onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/400x400/E2712E/FFFFFF?text=Cutish';
+                    e.target.src = 'https://via.placeholder.com/400x400/E2712E/FFFFFF?text=CutiesGlow';
                   }}
                 />
                 <div className="absolute top-3 left-3 bg-sky-50 text-sky-600 flex items-center space-x-1.5 px-3 py-1.5 rounded-full border border-sky-100 shadow-md">

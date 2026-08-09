@@ -23,25 +23,25 @@ const Hero = () => {
   const slides = [
     {
       id: 1,
-      alt: 'Cutish Premium Skincare Collection',
+      alt: 'CutiesGlow Premium Skincare Collection',
       desktopImage: '/image 1.png',
       mobileImage: '/image 1.jpg',
     },
     {
       id: 2,
-      alt: 'Cutish Botanical Beauty Skincare',
+      alt: 'CutiesGlow Botanical Beauty Skincare',
       desktopImage: '/image 2.png',
       mobileImage: '/image 2.jpg',
     },
     {
       id: 3,
-      alt: 'Cutish Natural Hair Care',
+      alt: 'CutiesGlow Natural Hair Care',
       desktopImage: '/image 3.png',
       mobileImage: '/image 3.jpg',
     },
     {
       id: 4,
-      alt: 'Cutish Glow Routine',
+      alt: 'CutiesGlow Glow Routine',
       desktopImage: '/image 4.png',
       mobileImage: '/image-4.png',
     },

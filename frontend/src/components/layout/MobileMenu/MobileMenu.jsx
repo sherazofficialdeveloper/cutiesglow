@@ -204,7 +204,12 @@ const MobileMenu = ({ isOpen, onClose }) => {
           >
             <div style={headerStyles}>
               <div style={logoStyles}>
-                <span style={logoHighlightStyles}>Cutish</span>
+                {/* ✅ FIX: windowWidth error removed – using Tailwind responsive classes */}
+                <img
+                  src="/logo.avif"
+                  alt="CUTIES GLOW"
+                  className="h-[70px] md:h-[80px] w-auto max-h-[80px]"
+                />
               </div>
               <button style={closeButtonStyles} onClick={onClose}>
                 <X size={24} />

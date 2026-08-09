@@ -71,7 +71,7 @@ const SectionHeader = ({
     const parts = title.split(' ');
     return parts.map((word, index) => {
       // Check if word should be highlighted
-      const highlightWords = ['Skincare', 'Benefits', 'Cutish', 'Ingredients', 'Collection'];
+      const highlightWords = ['Skincare', 'Benefits', 'CutiesGlow', 'Ingredients', 'Collection'];
       const isHighlight = highlightWords.some(hw => word.toLowerCase().includes(hw.toLowerCase()));
       
       return (

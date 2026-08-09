@@ -157,7 +157,11 @@ const Footer = () => {
     { label: 'Best Sellers', href: '/products?sort=rating' },
     { label: 'Sale', href: '/products?sale=true' },
   ];
-
+  const logoImageStyles = {
+    height: windowWidth < 768 ? '70px' : '80px',
+    width: 'auto',
+    maxHeight: '80px',
+  };
   return (
     <footer style={footerStyles}>
       <div style={containerStyles}>
@@ -165,17 +169,17 @@ const Footer = () => {
           {/* Brand Column */}
           <div style={brandStyles}>
             <div style={logoStyles}>
-              <span style={logoHighlightStyles}>Cutish</span> by Razia's
+              <img src="/logo.avif" alt="CUTIES GLOW" style={logoImageStyles} />
             </div>
             <p style={descriptionStyles}>
               Premium skincare products made with natural ingredients for your daily glow routine.
             </p>
             <div style={socialContainerStyles}>
               {[
-                { icon: Instagram, href: 'https://instagram.com/cutishbyrazias' },
-                { icon: Facebook, href: 'https://facebook.com/cutishbyrazias' },
-                { icon: Youtube, href: 'https://youtube.com/cutishbyrazias' },
-                { icon: Twitter, href: 'https://twitter.com/cutishbyrazias' },
+                { icon: Instagram, href: 'https://instagram.com/CutiesGlowbyrazias' },
+                { icon: Facebook, href: 'https://facebook.com/CutiesGlowbyrazias' },
+                { icon: Youtube, href: 'https://youtube.com/CutiesGlowbyrazias' },
+                { icon: Twitter, href: 'https://twitter.com/CutiesGlowbyrazias' },
               ].map((social, idx) => {
                 const Icon = social.icon;
                 return (
@@ -243,7 +247,7 @@ const Footer = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: spacing[4] }}>
               <div style={contactItemStyles}>
                 <Mail size={16} color={colors.primary} />
-                <span>info@cutishbyrazias.com</span>
+                <span>info@CutiesGlowbyrazias.com</span>
               </div>
               <div style={contactItemStyles}>
                 <Phone size={16} color={colors.primary} />

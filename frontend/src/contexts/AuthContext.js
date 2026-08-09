@@ -1,111 +1,93 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { authService } from '@/services/authService';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
+import { login as apiLogin, register as apiRegister, logout as apiLogout, getMe } from '@/services/authService';
 import { STORAGE_KEYS } from '@/config/constants';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const router = useRouter();
 
-  useEffect(() => {
-    const loadUser = async () => {
-      const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
-      const userData = localStorage.getItem(STORAGE_KEYS.USER);
-
-      if (token && userData) {
-        try {
-          const parsedUser = JSON.parse(userData);
-          setUser(parsedUser);
-          setIsAuthenticated(true);
-        } catch (error) {
-          console.error('Auth error:', error);
-          logout();
-        }
-      }
-      setLoading(false);
-    };
-
-    loadUser();
-  }, []);
-
-  const login = async (email, password) => {
-    setLoading(true);
+  const loadUser = useCallback(async () => {
     try {
-      // Simulate API call
-      const userData = { id: '1', name: 'Test User', email, role: 'customer' };
-      const token = 'mock-token';
-      
-      localStorage.setItem(STORAGE_KEYS.TOKEN, token);
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(userData));
-      
-      setUser(userData);
-      setIsAuthenticated(true);
-      return userData;
+      const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
+      if (token) {
+        const data = await getMe();
+        setUser(data.user);
+      } else {
+        setUser(null);
+      }
     } catch (error) {
-      throw error;
+      console.error('Error loading user:', error);
+      localStorage.removeItem(STORAGE_KEYS.TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.USER);
+      setUser(null);
     } finally {
       setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
+
+  const login = async (email, password) => {
+    // ✅ Real API call – no fallback
+    try {
+      const data = await apiLogin(email, password);
+      // ✅ Store token and user
+      localStorage.setItem(STORAGE_KEYS.TOKEN, data.token);
+      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(data.user));
+      setUser(data.user);
+      return data;
+    } catch (error) {
+      // ✅ Throw error to be handled by login page
+      console.error('Login API error:', error);
+      throw error;
     }
   };
 
   const register = async (name, email, password) => {
-    setLoading(true);
     try {
-      // Simulate API call
-      const userData = { id: '1', name, email, role: 'customer' };
-      return userData;
+      const data = await apiRegister(name, email, password);
+      return data;
     } catch (error) {
+      console.error('Register API error:', error);
       throw error;
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await apiLogout();
+    } catch (error) {
+      console.error('Logout error:', error);
     } finally {
-      setLoading(false);
+      localStorage.removeItem(STORAGE_KEYS.TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.USER);
+      setUser(null);
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem(STORAGE_KEYS.TOKEN);
-    localStorage.removeItem(STORAGE_KEYS.USER);
-    setUser(null);
-    setIsAuthenticated(false);
-    router.push('/');
-  };
+  const isAuthenticated = !!user;
 
-  const updateProfile = async (userData) => {
-    try {
-      const updated = { ...user, ...userData };
-      setUser(updated);
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(updated));
-      return updated;
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const value = {
-    user,
-    loading,
-    isAuthenticated,
-    login,
-    register,
-    logout,
-    updateProfile,
-    isAdmin: user?.role === 'admin',
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        isAuthenticated,
+        login,
+        register,
+        logout,
+        loadUser,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContext;

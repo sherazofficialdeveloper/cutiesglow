@@ -30,8 +30,8 @@ export default function PrivacyPolicyPage() {
         <h2 className="text-2xl font-bold text-gray-900">Contact Us</h2>
         <p>
           If you have any questions about our privacy policy, please contact us at{' '}
-          <a href="mailto:info@cutishbyrazias.com" className="font-medium" style={{ color: colors.primary }}>
-            info@cutishbyrazias.com
+          <a href="mailto:info@CutiesGlowbyrazias.com" className="font-medium" style={{ color: colors.primary }}>
+            info@CutiesGlowbyrazias.com
           </a>
         </p>
       </div>

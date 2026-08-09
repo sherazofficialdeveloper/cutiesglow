@@ -10,10 +10,17 @@ export default function AuthLayout({ children }) {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-md border border-gray-200">
         <div className="text-center">
-          <Link href="/" className="text-3xl font-extrabold" style={{ color: colors.primary }}>
-            Cutish
+          <Link
+            href="/"
+            className="block mx-auto w-fit"
+          >
+            <img
+              src="/logo.avif"
+              alt="CUTIES GLOW"
+              className="h-[70px] md:h-[80px] w-auto max-h-[80px] mx-auto"
+            />
           </Link>
-          <p className="mt-2 text-sm text-gray-600">by Razia's</p>
+          <p className="mt-2 text-sm text-gray-600"></p>
         </div>
         {children}
       </div>

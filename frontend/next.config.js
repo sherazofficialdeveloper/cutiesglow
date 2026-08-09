@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['images.unsplash.com', 'via.placeholder.com', 'cdn.shopify.com'],
+    domains: ['images.unsplash.com', 'via.placeholder.com', 'cdn.shopify.com','cutiesglow.com',],
   },
   eslint: {
     ignoreDuringBuilds: true,

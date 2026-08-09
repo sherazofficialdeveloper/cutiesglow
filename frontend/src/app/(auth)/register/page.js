@@ -10,24 +10,42 @@ import Button from '@/components/common/Button/Button';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function RegisterPage() {
-  const { register: signUp } = useAuth();
+  const { register: signUp, login } = useAuth();
   const router = useRouter();
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch, trigger } = useForm({
+    mode: 'onBlur',
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const password = watch('password');
+
   const onSubmit = async (data) => {
+      console.log('📤 Register data:', data);
     if (data.password !== data.confirmPassword) {
       setError('Passwords do not match');
       return;
     }
+
     setLoading(true);
     setError('');
     try {
+      // ✅ Register API call
       await signUp(data.name, data.email, data.password);
-      router.push('/login');
+      toast.success('Account created! Redirecting to dashboard...')
+      // ✅ Auto-login after registration
+      await login(data.email, data.password);
+
+      // ✅ Dashboard redirect
+      router.push('/dashboard');
     } catch (err) {
-      setError(err.message || 'Registration failed. Please try again.');
+      // ✅ Handle email already exists
+      const msg = err.response?.data?.message || err.message || 'Registration failed.';
+      if (msg.includes('already exists') || msg.includes('duplicate') || err.response?.status === 400) {
+        setError('This email is already registered. Please login instead.');
+      } else {
+        setError(msg);
+      }
     } finally {
       setLoading(false);
     }
@@ -36,38 +54,85 @@ export default function RegisterPage() {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-900">Create your account</h2>
-      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+      {error && (
+        <div className={`text-sm p-3 rounded-lg text-center border ${
+          error.includes('already registered')
+            ? 'bg-yellow-50 text-yellow-700 border-yellow-200'
+            : 'bg-red-50 text-red-600 border-red-200'
+        }`}>
+          {error}
+          {error.includes('already registered') && (
+            <Link href="/login" className="font-bold ml-1 underline" style={{ color: colors.primary }}>
+              Sign in here
+            </Link>
+          )}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <Input
           label="Full Name"
-          {...register('name', { required: 'Name is required' })}
+          placeholder="Enter your full name"
+          {...register('name', {
+            required: 'Name is required',
+            minLength: { value: 2, message: 'Name must be at least 2 characters' },
+          })}
           error={errors.name?.message}
+          onBlur={() => trigger('name')}
         />
+
         <Input
           label="Email"
           type="email"
-          {...register('email', { required: 'Email is required' })}
+          placeholder="Enter your email"
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: 'Please enter a valid email address',
+            },
+          })}
           error={errors.email?.message}
+          onBlur={() => trigger('email')}
         />
+
         <Input
           label="Password"
           type="password"
-          {...register('password', { required: 'Password is required', minLength: { value: 6, message: 'Minimum 6 characters' } })}
+          placeholder="Create a password (min 6 characters)"
+          {...register('password', {
+            required: 'Password is required',
+            minLength: { value: 6, message: 'Password must be at least 6 characters' },
+            validate: {
+              hasNumber: (value) => /\d/.test(value) || 'Password must contain at least one number',
+              hasUppercase: (value) => /[A-Z]/.test(value) || 'Password must contain at least one uppercase letter',
+            },
+          })}
           error={errors.password?.message}
+          onBlur={() => trigger('password')}
         />
+
         <Input
           label="Confirm Password"
           type="password"
-          {...register('confirmPassword', { required: 'Please confirm password' })}
+          placeholder="Confirm your password"
+          {...register('confirmPassword', {
+            required: 'Please confirm your password',
+            validate: (value) => value === password || 'Passwords do not match',
+          })}
           error={errors.confirmPassword?.message}
+          onBlur={() => trigger('confirmPassword')}
         />
+
         <Button type="submit" variant="primary" size="large" fullWidth loading={loading}>
           Register
         </Button>
       </form>
+
       <p className="text-sm text-center text-gray-600">
         Already have an account?{' '}
-        <Link href="/login" className="font-medium" style={{ color: colors.primary }}>
+        <Link href="/login" className="font-medium hover:underline" style={{ color: colors.primary }}>
           Sign in
         </Link>
       </p>

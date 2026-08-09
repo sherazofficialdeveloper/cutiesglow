@@ -19,10 +19,10 @@ export default function AboutPage() {
   ];
 
   const milestones = [
-    { year: '2018', title: 'Founded', description: 'Cutish was born with a mission to make natural skincare accessible.' },
+    { year: '2018', title: 'Founded', description: 'CutiesGlow was born with a mission to make natural skincare accessible.' },
     { year: '2019', title: 'First Product', description: 'Launched our first product - the Oat Milk Honey Soap.' },
     { year: '2020', title: 'Expanded', description: 'Grew our product line to include serums and creams.' },
-    { year: '2022', title: 'Reached 10,000+ Customers', description: '10,000+ happy customers trust Cutish for their skincare.' },
+    { year: '2022', title: 'Reached 10,000+ Customers', description: '10,000+ happy customers trust CutiesGlow for their skincare.' },
   ];
 
   // ✅ FAQ Data (same as homepage FAQ section)
@@ -67,7 +67,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
-                About <span style={{ color: colors.primary }}>Cutish</span>
+                About <span style={{ color: colors.primary }}>CutiesGlow</span>
               </h1>
               <p className="text-lg text-gray-600 mt-4 leading-relaxed">
                 Cuties Glow is a premium skincare brand dedicated to providing natural, 
@@ -86,7 +86,7 @@ export default function AboutPage() {
             <div className="relative">
               <img
                 src="/picur.png"
-                alt="About Cutish"
+                alt="About CutiesGlow"
                 className="rounded-2xl shadow-lg w-full"
               />
               <div className="absolute -bottom-4 -left-4 bg-white p-4 rounded-xl shadow-lg">
@@ -107,7 +107,7 @@ export default function AboutPage() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            title="Why Choose Cutish"
+            title="Why Choose CutiesGlow"
             subtitle="We believe in the power of nature, backed by science"
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
@@ -144,7 +144,7 @@ export default function AboutPage() {
               skincare that truly works.
             </p>
             <p>
-              Today, Cutish is Pakistan's trusted skincare brand, known for our commitment 
+              Today, CutiesGlow is Pakistan's trusted skincare brand, known for our commitment 
               to quality, natural ingredients, and visible results. Every product in our 
               collection is carefully formulated to address specific skin concerns while 
               being gentle enough for daily use.
@@ -225,7 +225,7 @@ export default function AboutPage() {
       <section className="py-16" style={{ backgroundColor: colors.primary }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Ready to Start Your Glow Journey?</h2>
-          <p className="text-white/80 mt-2 text-lg">Join thousands of happy customers who trust Cutish for their skincare.</p>
+          <p className="text-white/80 mt-2 text-lg">Join thousands of happy customers who trust CutiesGlow for their skincare.</p>
           <Button href="/products" variant="outline" size="large" className="mt-6" style={{ color: colors.white, borderColor: colors.white }}>
             Shop Now
           </Button>

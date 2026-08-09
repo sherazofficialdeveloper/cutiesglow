@@ -9,7 +9,7 @@ import { typography } from '@/config/theme/typography';
 
 export default function ContactPage() {
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'info@cutishbyrazias.com', href: 'mailto:info@cutishbyrazias.com' },
+    { icon: Mail, label: 'Email', value: 'info@CutiesGlowbyrazias.com', href: 'mailto:info@CutiesGlowbyrazias.com' },
     { icon: Phone, label: 'Phone', value: '+1 (800) 555-GLOW', href: 'tel:+1800555GLOW' },
     { icon: MapPin, label: 'Address', value: 'Pakistan', href: '#' },
     { icon: Clock, label: 'Working Hours', value: 'Mon-Fri: 9AM - 8PM', href: '#' },

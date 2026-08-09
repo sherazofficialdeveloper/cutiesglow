@@ -43,7 +43,7 @@ const VideoSection = () => {
             className="w-full h-full border-0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            title="Cutish - 3 Minute Glow"
+            title="CutiesGlow - 3 Minute Glow"
           />
         </motion.div>
       </div>

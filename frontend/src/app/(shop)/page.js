@@ -4,7 +4,6 @@ import React from 'react';
 import Hero from '@/components/sections/Hero/Hero';
 import BrandStory from '@/components/sections/BrandStory/BrandStory';
 import FeaturedProducts from '@/components/sections/FeaturedProducts/FeaturedProducts';
-import WhyChoose from '@/components/sections/WhyChoose/WhyChoose';
 import BeforeAfter from '@/components/sections/BeforeAfter/BeforeAfter';
 import PromoBanner from '@/components/sections/PromoBanner/PromoBanner';
 import Reviews from '@/components/sections/Reviews/Reviews';
@@ -18,7 +17,6 @@ export default function HomePage() {
       <Hero />
       <BrandStory />
       <FeaturedProducts />
-      <WhyChoose />
       <BeforeAfter />
       <PromoBanner imageUrl="/image 3.png" altText="Promotional Banner 1" />
       <Reviews />

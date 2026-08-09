@@ -49,7 +49,7 @@ const WhyChoose = () => {
             <Award className="w-4 h-4 text-[#E2712E]" /> Uncompromising Excellence
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-extrabold text-[#2D201A] tracking-tight mb-5 leading-tight">
-            Why Choose <span className="text-[#E2712E]">Cutish</span>
+            Why Choose <span className="text-[#E2712E]">CutiesGlow</span>
           </h2>
           <p className="text-lg sm:text-xl text-[#5C4E46] font-medium leading-relaxed">
             Where Swiss bio-technology meets pure 24K European gold. Designed for royalty, accessible to those who demand the finest skincare.

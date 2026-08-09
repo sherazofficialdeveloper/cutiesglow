@@ -4,13 +4,17 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Star, ThumbsUp, ThumbsDown, User, Calendar, MessageSquare } from 'lucide-react';
 import { colors } from '@/config/theme/colors';
-import { spacing } from '@/config/theme/spacing';
-import { typography } from '@/config/theme/typography';
 import Button from '@/components/common/Button/Button';
 import RatingStars from '@/components/common/RatingStars/RatingStars';
 import Input from '@/components/common/Input/Input';
 
-const ProductReviews = ({ reviews = [], averageRating = 0, totalReviews = 0, onAddReview, loading = false }) => {
+const ProductReviews = ({
+  reviews = [],
+  averageRating = 0,
+  totalReviews = 0,
+  onAddReview,
+  loading = false,
+}) => {
   const [showWriteReview, setShowWriteReview] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
@@ -18,225 +22,9 @@ const ProductReviews = ({ reviews = [], averageRating = 0, totalReviews = 0, onA
   const [reviewName, setReviewName] = useState('');
   const [reviewEmail, setReviewEmail] = useState('');
 
-  const containerStyles = {
-    backgroundColor: colors.white,
-    padding: spacing[6],
-    borderRadius: '16px',
-    border: `1px solid ${colors.border.light}`,
-  };
-
-  const headerStyles = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: spacing[6],
-    flexWrap: 'wrap',
-    gap: spacing[4],
-  };
-
-  const summaryStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: spacing[4],
-  };
-
-  const ratingDisplayStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  };
-
-  const ratingNumberStyles = {
-    fontSize: typography.fontSize['4xl'],
-    fontWeight: typography.fontWeight.extrabold,
-    color: colors.text.primary,
-    lineHeight: 1,
-  };
-
-  const totalStyles = {
-    fontSize: typography.fontSize.sm,
-    color: colors.text.muted,
-  };
-
-  const ratingBreakdownStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: spacing[1],
-    minWidth: '200px',
-  };
-
-  const ratingBarStyles = (percentage) => ({
-    width: '100%',
-    height: '6px',
-    borderRadius: '3px',
-    backgroundColor: colors.border.light,
-    overflow: 'hidden',
-    position: 'relative',
-  });
-
-  const ratingBarFillStyles = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    backgroundColor: '#F59E0B',
-    borderRadius: '3px',
-    transition: 'width 0.6s ease',
-  };
-
-  const ratingRowStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: spacing[2],
-  };
-
-  const ratingLabelStyles = {
-    fontSize: typography.fontSize.sm,
-    color: colors.text.secondary,
-    minWidth: '40px',
-  };
-
-  const ratingPercentStyles = {
-    fontSize: typography.fontSize.sm,
-    color: colors.text.muted,
-    minWidth: '40px',
-    textAlign: 'right',
-  };
-
-  const reviewListStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: spacing[6],
-  };
-
-  const reviewItemStyles = {
-    paddingBottom: spacing[4],
-    borderBottom: `1px solid ${colors.border.light}`,
-  };
-
-  const reviewHeaderStyles = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: spacing[2],
-  };
-
-  const reviewerStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: spacing[2],
-  };
-
-  const avatarStyles = {
-    width: '40px',
-    height: '40px',
-    borderRadius: '50%',
-    backgroundColor: colors.primary,
-    color: colors.white,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: typography.fontWeight.bold,
-    fontSize: typography.fontSize.sm,
-  };
-
-  const reviewerNameStyles = {
-    fontWeight: typography.fontWeight.bold,
-    color: colors.text.primary,
-  };
-
-  const reviewerEmailStyles = {
-    fontSize: typography.fontSize.xs,
-    color: colors.text.muted,
-  };
-
-  const reviewDateStyles = {
-    fontSize: typography.fontSize.xs,
-    color: colors.text.muted,
-  };
-
-  const reviewTextStyles = {
-    fontSize: typography.fontSize.base,
-    color: colors.text.secondary,
-    lineHeight: typography.lineHeight.relaxed,
-    marginTop: spacing[2],
-  };
-
-  const reviewActionsStyles = {
-    display: 'flex',
-    gap: spacing[4],
-    marginTop: spacing[3],
-  };
-
-  const actionButtonStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: spacing[1],
-    fontSize: typography.fontSize.sm,
-    color: colors.text.muted,
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    transition: 'color 0.3s ease',
-  };
-
-  const formContainerStyles = {
-    marginTop: spacing[6],
-    padding: spacing[6],
-    backgroundColor: '#F9FAFB',
-    borderRadius: '12px',
-  };
-
-  const formTitleStyles = {
-    fontSize: typography.fontSize.lg,
-    fontWeight: typography.fontWeight.bold,
-    color: colors.text.primary,
-    marginBottom: spacing[4],
-  };
-
-  const ratingSelectorStyles = {
-    display: 'flex',
-    gap: spacing[1],
-    marginBottom: spacing[4],
-  };
-
-  const starButtonStyles = (isActive) => ({
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: spacing[0.5],
-    color: isActive ? '#F59E0B' : colors.border.medium,
-    transition: 'color 0.2s ease',
-  });
-
-  const formGroupStyles = {
-    marginBottom: spacing[4],
-  };
-
-  const formLabelStyles = {
-    display: 'block',
-    fontSize: typography.fontSize.sm,
-    fontWeight: typography.fontWeight.medium,
-    color: colors.text.secondary,
-    marginBottom: spacing[1],
-  };
-
-  const textareaStyles = {
-    width: '100%',
-    padding: `${spacing[3]} ${spacing[4]}`,
-    border: `1px solid ${colors.border.light}`,
-    borderRadius: '8px',
-    fontSize: typography.fontSize.base,
-    fontFamily: typography.fontFamily.body,
-    resize: 'vertical',
-    minHeight: '100px',
-    outline: 'none',
-    transition: 'border-color 0.3s ease',
-  };
-
   const getRatingDistribution = () => {
     const dist = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
-    reviews.forEach(review => {
+    reviews.forEach((review) => {
       if (dist[review.rating] !== undefined) {
         dist[review.rating]++;
       }
@@ -249,7 +37,7 @@ const ProductReviews = ({ reviews = [], averageRating = 0, totalReviews = 0, onA
   const getInitials = (name) => {
     return name
       .split(' ')
-      .map(word => word[0])
+      .map((word) => word[0])
       .join('')
       .toUpperCase()
       .slice(0, 2);
@@ -259,12 +47,13 @@ const ProductReviews = ({ reviews = [], averageRating = 0, totalReviews = 0, onA
     e.preventDefault();
     if (rating === 0 || !reviewText.trim()) return;
 
-    onAddReview && onAddReview({
-      rating,
-      text: reviewText,
-      name: reviewName || 'Anonymous',
-      email: reviewEmail,
-    });
+    onAddReview &&
+      onAddReview({
+        rating,
+        text: reviewText,
+        name: reviewName || 'Anonymous',
+        email: reviewEmail,
+      });
 
     setRating(0);
     setReviewText('');
@@ -274,30 +63,44 @@ const ProductReviews = ({ reviews = [], averageRating = 0, totalReviews = 0, onA
   };
 
   if (loading) {
-    return <div style={{ ...containerStyles, textAlign: 'center', padding: spacing[8] }}>Loading...</div>;
+    return (
+      <div className="bg-white rounded-2xl border border-[#EBE0D5] shadow-sm p-8 text-center">
+        Loading...
+      </div>
+    );
   }
 
   return (
-    <div style={containerStyles}>
-      <div style={headerStyles}>
-        <div style={summaryStyles}>
-          <div style={ratingDisplayStyles}>
-            <span style={ratingNumberStyles}>{averageRating.toFixed(1)}</span>
+    <div className="bg-white rounded-2xl border border-[#EBE0D5] shadow-sm p-4 sm:p-6">
+      {/* Header: Summary + Write Review Button */}
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          {/* Rating Display */}
+          <div className="flex flex-col items-center sm:items-start">
+            <span className="text-4xl font-extrabold text-gray-900 leading-none">
+              {averageRating.toFixed(1)}
+            </span>
             <RatingStars rating={Math.round(averageRating)} size={20} />
-            <span style={totalStyles}>{totalReviews} reviews</span>
+            <span className="text-sm text-gray-500">{totalReviews} reviews</span>
           </div>
 
-          <div style={ratingBreakdownStyles}>
+          {/* Rating Breakdown Bars */}
+          <div className="flex flex-col gap-1 min-w-[140px] sm:min-w-[200px] w-full">
             {[5, 4, 3, 2, 1].map((star) => {
               const count = distribution[star] || 0;
               const percentage = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
               return (
-                <div key={star} style={ratingRowStyles}>
-                  <span style={ratingLabelStyles}>{star}★</span>
-                  <div style={ratingBarStyles(percentage)}>
-                    <div style={{ ...ratingBarFillStyles, width: `${percentage}%` }} />
+                <div key={star} className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600 w-8">{star}★</span>
+                  <div className="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-yellow-400 rounded-full transition-all duration-500"
+                      style={{ width: `${percentage}%` }}
+                    />
                   </div>
-                  <span style={ratingPercentStyles}>{percentage.toFixed(0)}%</span>
+                  <span className="text-sm text-gray-400 w-10 text-right">
+                    {percentage.toFixed(0)}%
+                  </span>
                 </div>
               );
             })}
@@ -309,37 +112,50 @@ const ProductReviews = ({ reviews = [], averageRating = 0, totalReviews = 0, onA
           size="medium"
           onClick={() => setShowWriteReview(!showWriteReview)}
           icon={<MessageSquare size={18} />}
+          className="self-start sm:self-auto"
         >
           {showWriteReview ? 'Cancel' : 'Write Review'}
         </Button>
       </div>
 
+      {/* Write Review Form */}
       {showWriteReview && (
-        <div style={formContainerStyles}>
-          <h3 style={formTitleStyles}>Write a Review</h3>
+        <div className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-6">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Write a Review</h3>
           <form onSubmit={handleSubmitReview}>
-            <div style={formGroupStyles}>
-              <label style={formLabelStyles}>Your Rating *</label>
-              <div style={ratingSelectorStyles}>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Your Rating *
+              </label>
+              <div className="flex gap-1">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
                     key={star}
                     type="button"
-                    style={starButtonStyles(star <= (hoverRating || rating))}
+                    className="focus:outline-none"
                     onMouseEnter={() => setHoverRating(star)}
                     onMouseLeave={() => setHoverRating(0)}
                     onClick={() => setRating(star)}
                   >
-                    <Star size={32} fill={star <= (hoverRating || rating) ? '#F59E0B' : 'none'} />
+                    <Star
+                      size={32}
+                      className={`transition-colors ${
+                        star <= (hoverRating || rating)
+                          ? 'fill-yellow-400 text-yellow-400'
+                          : 'text-gray-300'
+                      }`}
+                    />
                   </button>
                 ))}
               </div>
             </div>
 
-            <div style={formGroupStyles}>
-              <label style={formLabelStyles}>Review *</label>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Review *
+              </label>
               <textarea
-                style={textareaStyles}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E2702E] focus:border-transparent text-sm min-h-[100px]"
                 placeholder="Share your experience with this product..."
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
@@ -347,23 +163,29 @@ const ProductReviews = ({ reviews = [], averageRating = 0, totalReviews = 0, onA
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: spacing[4] }}>
-              <div style={formGroupStyles}>
-                <label style={formLabelStyles}>Name</label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Name
+                </label>
                 <Input
                   type="text"
                   placeholder="Your name"
                   value={reviewName}
                   onChange={(e) => setReviewName(e.target.value)}
+                  fullWidth
                 />
               </div>
-              <div style={formGroupStyles}>
-                <label style={formLabelStyles}>Email</label>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
                 <Input
                   type="email"
                   placeholder="Your email"
                   value={reviewEmail}
                   onChange={(e) => setReviewEmail(e.target.value)}
+                  fullWidth
                 />
               </div>
             </div>
@@ -375,42 +197,45 @@ const ProductReviews = ({ reviews = [], averageRating = 0, totalReviews = 0, onA
         </div>
       )}
 
+      {/* Reviews List */}
       {reviews.length > 0 ? (
-        <div style={reviewListStyles}>
+        <div className="space-y-6">
           {reviews.map((review, index) => (
             <motion.div
               key={review.id || index}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              style={reviewItemStyles}
+              className="border-b border-gray-200 pb-4 last:border-0"
             >
-              <div style={reviewHeaderStyles}>
-                <div style={reviewerStyles}>
-                  <div style={avatarStyles}>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#E2702E] text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
                     {getInitials(review.name || 'User')}
                   </div>
                   <div>
-                    <div style={reviewerNameStyles}>{review.name || 'Anonymous'}</div>
-                    <div style={reviewerEmailStyles}>{review.email || ''}</div>
+                    <div className="font-bold text-gray-900 text-sm">
+                      {review.name || 'Anonymous'}
+                    </div>
+                    <div className="text-xs text-gray-500">{review.email || ''}</div>
                   </div>
                 </div>
-                <div style={{ textAlign: 'right' }}>
+                <div className="flex items-center gap-2 sm:flex-col sm:items-end">
                   <RatingStars rating={review.rating || 0} size={16} />
-                  <div style={reviewDateStyles}>
+                  <div className="text-xs text-gray-400">
                     {review.date || 'Recently'}
                   </div>
                 </div>
               </div>
 
-              <p style={reviewTextStyles}>{review.text}</p>
+              <p className="text-sm text-gray-600 mt-2 leading-relaxed">{review.text}</p>
 
-              <div style={reviewActionsStyles}>
-                <button style={actionButtonStyles}>
+              <div className="flex items-center gap-4 mt-3">
+                <button className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors">
                   <ThumbsUp size={16} />
                   Helpful ({review.helpful || 0})
                 </button>
-                <button style={actionButtonStyles}>
+                <button className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 transition-colors">
                   <ThumbsDown size={16} />
                   Report
                 </button>
@@ -419,9 +244,9 @@ const ProductReviews = ({ reviews = [], averageRating = 0, totalReviews = 0, onA
           ))}
         </div>
       ) : (
-        <div style={{ textAlign: 'center', padding: spacing[8], color: colors.text.muted }}>
-          <User size={48} style={{ margin: '0 auto', opacity: 0.3 }} />
-          <p style={{ marginTop: spacing[4] }}>No reviews yet. Be the first to review this product!</p>
+        <div className="text-center py-12 text-gray-500">
+          <User size={48} className="mx-auto opacity-30" />
+          <p className="mt-4">No reviews yet. Be the first to review this product!</p>
         </div>
       )}
     </div>

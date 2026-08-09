@@ -72,7 +72,7 @@ const AdminSidebar = () => {
 
   return (
     <aside style={containerStyles}>
-      <div style={logoStyles}>Cutish Admin</div>
+      <div style={logoStyles}>CutiesGlow Admin</div>
       <nav>
         {navItems.map((item) => {
           const Icon = item.icon;

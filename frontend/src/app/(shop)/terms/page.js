@@ -35,8 +35,8 @@ export default function TermsPage() {
         <h2 className="text-2xl font-bold text-gray-900">Contact Us</h2>
         <p>
           For any questions regarding our terms, please contact us at{' '}
-          <a href="mailto:info@cutishbyrazias.com" className="font-medium" style={{ color: colors.primary }}>
-            info@cutishbyrazias.com
+          <a href="mailto:info@CutiesGlowbyrazias.com" className="font-medium" style={{ color: colors.primary }}>
+            info@CutiesGlowbyrazias.com
           </a>
         </p>
       </div>

@@ -1,60 +1,65 @@
 // frontend/src/services/authService.js
 import apiClient from './api';
+import { STORAGE_KEYS } from '@/config/constants';
 
-// Login user
+// -------- Login --------
 export const login = async (email, password) => {
   const response = await apiClient.post('/auth/login', { email, password });
-  return response.data; // Expected: { user, token }
+  // Response: { user, token }
+  return response.data;
 };
 
-// Register user
+// -------- Register --------
 export const register = async (name, email, password) => {
   const response = await apiClient.post('/auth/register', { name, email, password });
-  return response.data; // Expected: { user, token }
+  // Response: { user, token }
+  return response.data;
 };
 
-// Get current user (verify token)
+// -------- Get Current User --------
 export const getMe = async () => {
   const response = await apiClient.get('/auth/me');
-  return response.data; // Expected: { user }
+  // Response: { user }
+  return response.data;
 };
 
-// Forgot password
+// -------- Forgot Password --------
 export const forgotPassword = async (email) => {
   const response = await apiClient.post('/auth/forgot-password', { email });
   return response.data;
 };
 
-// Reset password
+// -------- Reset Password --------
 export const resetPassword = async (token, password) => {
   const response = await apiClient.post('/auth/reset-password', { token, password });
   return response.data;
 };
 
-// Verify email
+// -------- Verify Email --------
 export const verifyEmail = async (token) => {
   const response = await apiClient.post('/auth/verify-email', { token });
   return response.data;
 };
 
-// Update profile
+// -------- Update Profile --------
 export const updateProfile = async (data) => {
   const response = await apiClient.put('/auth/profile', data);
   return response.data;
 };
 
-// Logout (optional: call API to invalidate token)
+// -------- Logout --------
 export const logout = async () => {
   try {
     await apiClient.post('/auth/logout');
   } catch (error) {
-    console.warn('Logout error:', error);
+    console.warn('Logout API error (ignored):', error);
   }
-  // Cleanup handled in context, but we can call this to be safe.
+  // Local cleanup (token removal handled in context)
   localStorage.removeItem(STORAGE_KEYS.TOKEN);
   localStorage.removeItem(STORAGE_KEYS.USER);
 };
 
+// -------- Default Export --------
 export default {
   login,
   register,

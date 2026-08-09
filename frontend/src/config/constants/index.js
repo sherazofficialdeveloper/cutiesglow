@@ -6,8 +6,8 @@
 // App Info
 export const APP_NAME = 'CUTIES GLOW';
 export const APP_DESCRIPTION = 'Premium Skincare & Beauty Products';
-export const APP_URL = 'https://cutishbyrazias.com';
-export const APP_EMAIL = 'info@cutishbyrazias.com';
+export const APP_URL = 'https://CutiesGlowbyrazias.com';
+export const APP_EMAIL = 'info@CutiesGlowbyrazias.com';
 export const APP_PHONE = '+1 (800) 555-GLOW';
 
 // Routes

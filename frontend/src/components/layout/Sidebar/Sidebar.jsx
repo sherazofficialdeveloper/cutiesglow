@@ -257,7 +257,7 @@ const Sidebar = ({ isOpen, onClose, variant = 'user' }) => {
             {/* Header */}
             <div style={headerStyles}>
               <div style={logoStyles}>
-                <span style={logoHighlightStyles}>Cutish</span>
+                <span style={logoHighlightStyles}>CutiesGlow</span>
               </div>
               <button
                 style={closeButtonStyles}
