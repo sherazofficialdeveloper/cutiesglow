@@ -16,16 +16,16 @@ const seedSettings = async () => {
 
     const settings = {
       // General Settings
-      siteName: 'Cutish by Razias',
+      siteName: 'CutiesGlow by Razias',
       tagline: 'Premium Skincare for Radiant Skin',
-      contactEmail: 'info@cutishbyrazias.com',
+      contactEmail: 'info@CutiesGlowbyrazias.com',
       contactPhone: '+1 (800) 555-GLOW',
       address: 'Pakistan',
 
       // Zelle Settings
-      zelleEmail: 'pay@cutishbyrazias.com',
+      zelleEmail: 'pay@CutiesGlowbyrazias.com',
       zellePhone: '+1234567890',
-      zelleInstructions: 'Send payment via Zelle to pay@cutishbyrazias.com. Please include your order number in the memo field for faster verification.',
+      zelleInstructions: 'Send payment via Zelle to pay@CutiesGlowbyrazias.com. Please include your order number in the memo field for faster verification.',
 
       // PayPal Settings
       paypalClientId: '',

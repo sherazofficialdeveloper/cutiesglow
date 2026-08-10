@@ -18,7 +18,7 @@ cloudinary.config({
  */
 export const uploadToCloudinary = async (filePath, options = {}) => {
   try {
-    const { folder = 'cutish', publicId, transformation } = options;
+    const { folder = 'CutiesGlow', publicId, transformation } = options;
 
     const result = await cloudinary.uploader.upload(filePath, {
       folder,
@@ -95,7 +95,7 @@ export const getCloudinaryUrl = (publicId, options = {}) => {
  */
 export const uploadBase64Image = async (base64String, options = {}) => {
   try {
-    const { folder = 'cutish', publicId } = options;
+    const { folder = 'CutiesGlow', publicId } = options;
 
     const result = await cloudinary.uploader.upload(base64String, {
       folder,

@@ -1,8 +1,10 @@
 // backend/src/controllers/authController.js
 
+console.log('🔥🔥🔥 authController.js LOADED - Version 3 🔥🔥🔥');
+
 import User from '../models/User.js';
 import { generateToken } from '../config/jwt.js';
-import { sendWelcomeEmail, sendOrderConfirmation } from '../config/email.js';
+import { sendWelcomeEmail } from '../config/email.js';
 import {
   registerSchema,
   loginSchema,
@@ -12,7 +14,6 @@ import {
   updateProfileSchema,
 } from '../validations/authValidation.js';
 import { validate } from '../middleware/validate.js';
-import { AppError } from '../utils/error.js';
 import { comparePassword, hashPassword } from '../utils/password.js';
 
 /**
@@ -20,10 +21,13 @@ import { comparePassword, hashPassword } from '../utils/password.js';
  * POST /api/auth/register
  */
 export const register = async (req, res, next) => {
+  console.log('🟢 [1] Register function STARTED');
+  
   try {
     // Validate input
     const errors = validate(registerSchema, req.body);
     if (errors.length > 0) {
+      console.log('❌ Validation errors:', errors);
       return res.status(400).json({
         success: false,
         errors,
@@ -31,10 +35,12 @@ export const register = async (req, res, next) => {
     }
 
     const { name, email, password, phone } = req.body;
+    console.log(`🟢 [2] Registering user: ${email}`);
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+      console.log(`❌ User already exists: ${email}`);
       return res.status(409).json({
         success: false,
         message: 'User already exists with this email',
@@ -53,16 +59,25 @@ export const register = async (req, res, next) => {
     });
 
     await user.save();
+    console.log(`🟢 [3] User saved: ${user.email}`);
 
-    // Send welcome email (async, don't await)
-    try {
-      await sendWelcomeEmail(user);
-    } catch (emailError) {
-      console.error('Failed to send welcome email:', emailError);
-    }
+    // ✅ Send welcome email WITHOUT awaiting – non-blocking
+    console.log(`📧 [4] ATTEMPTING to send welcome email to: ${user.email}`);
+    
+    // Call the email function and log result
+    sendWelcomeEmail(user)
+      .then((result) => {
+        console.log(`✅ [5] Welcome email SENT successfully to: ${user.email}`);
+        console.log('📨 Message ID:', result.messageId);
+      })
+      .catch((err) => {
+        console.error(`❌ [5] Welcome email FAILED for ${user.email}:`, err.message);
+        console.error('Full error:', err);
+      });
 
     // Generate token
     const token = generateToken({ id: user._id, email: user.email });
+    console.log(`🟢 [6] Token generated for: ${user.email}`);
 
     res.status(201).json({
       success: true,
@@ -77,7 +92,10 @@ export const register = async (req, res, next) => {
         token,
       },
     });
+    console.log(`🟢 [7] Registration response sent for: ${user.email}`);
+    
   } catch (error) {
+    console.error('❌ Register CATCH error:', error);
     next(error);
   }
 };
@@ -87,8 +105,8 @@ export const register = async (req, res, next) => {
  * POST /api/auth/login
  */
 export const login = async (req, res, next) => {
+  console.log('🔵 Login function called');
   try {
-    // Validate input
     const errors = validate(loginSchema, req.body);
     if (errors.length > 0) {
       return res.status(400).json({
@@ -99,7 +117,6 @@ export const login = async (req, res, next) => {
 
     const { email, password } = req.body;
 
-    // Find user
     const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) {
       return res.status(401).json({
@@ -108,7 +125,6 @@ export const login = async (req, res, next) => {
       });
     }
 
-    // Check password
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
       return res.status(401).json({
@@ -117,11 +133,9 @@ export const login = async (req, res, next) => {
       });
     }
 
-    // Update last login
     user.lastLogin = new Date();
     await user.save();
 
-    // Generate token
     const token = generateToken({ id: user._id, email: user.email });
 
     res.json({
@@ -139,6 +153,7 @@ export const login = async (req, res, next) => {
       },
     });
   } catch (error) {
+    console.error('Login error:', error);
     next(error);
   }
 };
@@ -174,8 +189,6 @@ export const getMe = async (req, res, next) => {
  * POST /api/auth/logout
  */
 export const logout = async (req, res) => {
-  // Since we're using JWT, logout is client-side
-  // But we can implement token blacklisting if needed
   res.json({
     success: true,
     message: 'Logout successful',
@@ -206,13 +219,8 @@ export const forgotPassword = async (req, res, next) => {
       });
     }
 
-    // Generate reset token
     const resetToken = user.generatePasswordResetToken();
     await user.save();
-
-    // Send reset email
-    // TODO: Implement email sending
-    // await sendPasswordResetEmail(user, resetToken);
 
     res.json({
       success: true,
@@ -239,7 +247,6 @@ export const resetPassword = async (req, res, next) => {
 
     const { token, password } = req.body;
 
-    // Find user by reset token
     const user = await User.findOne({
       resetPasswordToken: token,
       resetPasswordExpires: { $gt: Date.now() },
@@ -252,7 +259,6 @@ export const resetPassword = async (req, res, next) => {
       });
     }
 
-    // Update password
     user.password = await hashPassword(password);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
@@ -316,7 +322,6 @@ export const updateProfile = async (req, res, next) => {
       });
     }
 
-    // Update fields
     if (name) user.name = name;
     if (phone) user.phone = phone;
     if (avatar) user.avatar = avatar;

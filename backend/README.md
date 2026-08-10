@@ -1,4 +1,4 @@
-# Cutish Backend API
+# CutiesGlow Backend API
 
 ## 🚀 Getting Started
 

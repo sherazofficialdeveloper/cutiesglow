@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation';
 import { ShoppingBag, Heart, Package, Star, Loader2 } from 'lucide-react';
 import { colors } from '@/config/theme/colors';
 import { useAuth } from '@/hooks/useAuth';
-import { orderService } from '@/services/orderService';
-import { wishlistService } from '@/services/wishlistService';
-import { reviewService } from '@/services/reviewService';
+import orderService from '@/services/orderService';
+import wishlistService from '@/services/wishlistService';
+import reviewService from '@/services/reviewService';
 
 export default function DashboardPage() {
   const { user, isAuthenticated } = useAuth();

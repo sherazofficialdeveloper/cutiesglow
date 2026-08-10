@@ -18,7 +18,7 @@ const seedUsers = async () => {
     const users = [
       {
         name: 'Admin User',
-        email: 'admin@cutishbyrazias.com',
+        email: 'admin@CutiesGlowbyrazias.com',
         password: 'Admin@123',
         phone: '+1 234 567 8900',
         role: 'admin',

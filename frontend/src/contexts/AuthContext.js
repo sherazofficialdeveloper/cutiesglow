@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useState, useEffect, useCallback } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { login as apiLogin, register as apiRegister, logout as apiLogout, getMe } from '@/services/authService';
 import { STORAGE_KEYS } from '@/config/constants';
 
@@ -9,6 +10,8 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const loadUser = useCallback(async () => {
     try {
@@ -33,17 +36,32 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, [loadUser]);
 
+  // ✅ FIX: Redirect unauthenticated users, but allow reset-password
+  useEffect(() => {
+    if (!loading) {
+      // ✅ Public paths that don't require authentication
+      const publicPaths = ['/login', '/register', '/forgot-password', '/reset-password'];
+      
+      // If user is not authenticated and trying to access a protected route
+      if (!user && !publicPaths.includes(pathname)) {
+        router.push('/login');
+      }
+      
+      // If user is authenticated and trying to access public routes (login/register), redirect to dashboard
+      if (user && publicPaths.includes(pathname)) {
+        router.push('/dashboard');
+      }
+    }
+  }, [user, loading, pathname, router]);
+
   const login = async (email, password) => {
-    // ✅ Real API call – no fallback
     try {
       const data = await apiLogin(email, password);
-      // ✅ Store token and user
       localStorage.setItem(STORAGE_KEYS.TOKEN, data.token);
       localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(data.user));
       setUser(data.user);
       return data;
     } catch (error) {
-      // ✅ Throw error to be handled by login page
       console.error('Login API error:', error);
       throw error;
     }
@@ -52,6 +70,12 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     try {
       const data = await apiRegister(name, email, password);
+      // ✅ Store token and user from registration response
+      if (data.token && data.user) {
+        localStorage.setItem(STORAGE_KEYS.TOKEN, data.token);
+        localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(data.user));
+        setUser(data.user);
+      }
       return data;
     } catch (error) {
       console.error('Register API error:', error);

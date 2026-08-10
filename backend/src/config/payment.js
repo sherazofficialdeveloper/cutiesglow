@@ -12,7 +12,7 @@ export const paypalConfig = {
 
 // Zelle Configuration
 export const zelleConfig = {
-  email: process.env.ZELLE_EMAIL || 'pay@cutishbyrazias.com',
+  email: process.env.ZELLE_EMAIL || 'pay@CutiesGlowbyrazias.com',
   phone: process.env.ZELLE_PHONE || '+1234567890',
   instructions: process.env.ZELLE_INSTRUCTIONS || 'Send payment via Zelle to the email above. Include your order number in the memo.',
 };

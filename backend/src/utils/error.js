@@ -17,6 +17,17 @@ export class AppError extends Error {
 }
 
 /**
+ * ✅ Higher-order function to catch async errors in Express routes
+ * @param {Function} fn - Async route handler
+ * @returns {Function} Express middleware
+ */
+export const catchAsync = (fn) => {
+  return (req, res, next) => {
+    fn(req, res, next).catch(next);
+  };
+};
+
+/**
  * Validation error class
  */
 export class ValidationError extends AppError {
@@ -123,6 +134,7 @@ export const isDuplicateKeyError = (error) => {
 
 export default {
   AppError,
+  catchAsync,
   ValidationError,
   AuthError,
   ForbiddenError,

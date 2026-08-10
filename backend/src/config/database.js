@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/cutish_ecommerce';
+    const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/CutiesGlow_ecommerce';
     console.log('🔍 Connecting to MongoDB with URI:', MONGODB_URI);
     
     const conn = await mongoose.connect(MONGODB_URI, {

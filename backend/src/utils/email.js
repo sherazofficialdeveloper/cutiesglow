@@ -33,7 +33,7 @@ export const sendEmail = async ({ to, subject, html, text }) => {
   try {
     const transporter = createTransporter();
     const mailOptions = {
-      from: process.env.SMTP_FROM || `"Cutish" <${process.env.SMTP_USER}>`,
+      from: process.env.SMTP_FROM || `"CutiesGlow" <${process.env.SMTP_USER}>`,
       to,
       subject,
       html,
@@ -53,7 +53,7 @@ export const sendEmail = async ({ to, subject, html, text }) => {
  * Send welcome email
  */
 export const sendWelcomeEmail = async (user) => {
-  const subject = 'Welcome to Cutish! 🌟';
+  const subject = 'Welcome to CutiesGlow! 🌟';
   const html = `
     <!DOCTYPE html>
     <html>
@@ -71,11 +71,11 @@ export const sendWelcomeEmail = async (user) => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>✨ Welcome to Cutish!</h1>
+          <h1>✨ Welcome to CutiesGlow!</h1>
         </div>
         <div class="content">
           <h2>Hi ${user.name},</h2>
-          <p>Thank you for joining the Cutish family! 🎉</p>
+          <p>Thank you for joining the CutiesGlow family! 🎉</p>
           <p>We're excited to help you achieve radiant, glowing skin with our premium skincare products.</p>
           <p><strong>Here's a special gift for you:</strong></p>
           <p style="text-align: center;">
@@ -88,10 +88,10 @@ export const sendWelcomeEmail = async (user) => {
             <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}" class="button">Start Shopping</a>
           </p>
           <p>Happy glowing! 🌸</p>
-          <p>— The Cutish Team</p>
+          <p>— The CutiesGlow Team</p>
         </div>
         <div class="footer">
-          <p>© ${new Date().getFullYear()} Cutish by Razias. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} CutiesGlow by Razias. All rights reserved.</p>
           <p>If you didn't create an account, please ignore this email.</p>
         </div>
       </div>
@@ -174,7 +174,7 @@ export const sendOrderConfirmation = async (order, user) => {
           ${order.paymentMethod === 'zelle' && order.status === 'pending' ? `
             <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0;">
               <p><strong>⚠️ Payment Verification Pending</strong></p>
-              <p>Please send payment via Zelle to <strong>${process.env.ZELLE_EMAIL || 'pay@cutishbyrazias.com'}</strong> and upload the proof to complete your order.</p>
+              <p>Please send payment via Zelle to <strong>${process.env.ZELLE_EMAIL || 'pay@CutiesGlowbyrazias.com'}</strong> and upload the proof to complete your order.</p>
             </div>
           ` : ''}
 
@@ -183,10 +183,10 @@ export const sendOrderConfirmation = async (order, user) => {
           </p>
 
           <p>We'll keep you updated on your order status! 📦</p>
-          <p>— The Cutish Team</p>
+          <p>— The CutiesGlow Team</p>
         </div>
         <div class="footer">
-          <p>© ${new Date().getFullYear()} Cutish by Razias. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} CutiesGlow by Razias. All rights reserved.</p>
         </div>
       </div>
     </body>
@@ -226,11 +226,11 @@ export const sendPaymentVerificationEmail = async (order, user) => {
           <p style="text-align: center; margin-top: 30px;">
             <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/orders/${order.id}" class="button">View Order</a>
           </p>
-          <p>Thank you for choosing Cutish! ✨</p>
-          <p>— The Cutish Team</p>
+          <p>Thank you for choosing CutiesGlow! ✨</p>
+          <p>— The CutiesGlow Team</p>
         </div>
         <div class="footer">
-          <p>© ${new Date().getFullYear()} Cutish by Razias. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} CutiesGlow by Razias. All rights reserved.</p>
         </div>
       </div>
     </body>
@@ -272,10 +272,10 @@ export const sendPasswordResetEmail = async (user, resetToken) => {
           </p>
           <p>This link will expire in <strong>1 hour</strong>.</p>
           <p>If you didn't request this, please ignore this email.</p>
-          <p>— The Cutish Team</p>
+          <p>— The CutiesGlow Team</p>
         </div>
         <div class="footer">
-          <p>© ${new Date().getFullYear()} Cutish by Razias. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} CutiesGlow by Razias. All rights reserved.</p>
         </div>
       </div>
     </body>

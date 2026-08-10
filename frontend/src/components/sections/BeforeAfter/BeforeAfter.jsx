@@ -11,20 +11,20 @@ const BeforeAfter = () => {
   const items = [
     {
       id: 1,
-      beforeImage: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600&sat=-65&con=120',
-      afterImage: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600',
+      beforeImage: '/before.webp',
+      afterImage: '/after.webp',
       description: 'From dry and patchy to deeply nourished, soft, and hydrated skin',
     },
     {
       id: 2,
-      beforeImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600&sat=-60&con=115',
-      afterImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600',
+      beforeImage: '/before 3.avif',
+      afterImage: '/after 2.avif',
       description: 'Turn dull, uneven tone into a radiant, glowing complexion',
     },
     {
       id: 3,
-      beforeImage: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=600&sat=-55&con=115',
-      afterImage: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=600',
+      beforeImage: '/before.avif',
+      afterImage: '/after 3.avif',
       description: 'Transform open pores into a smooth, flawless finish',
     },
   ];

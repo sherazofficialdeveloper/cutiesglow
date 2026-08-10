@@ -9,12 +9,12 @@ export const getSettings = async (req, res, next) => {
     let settings = await Settings.findOne();
     if (!settings) {
       settings = new Settings({
-        siteName: 'Cutish by Razias',
+        siteName: 'CutiesGlow by Razias',
         tagline: 'Premium Skincare',
-        contactEmail: 'info@cutishbyrazias.com',
+        contactEmail: 'info@CutiesGlowbyrazias.com',
         contactPhone: '+1 (800) 555-GLOW',
         address: 'Pakistan',
-        zelleEmail: 'pay@cutishbyrazias.com',
+        zelleEmail: 'pay@CutiesGlowbyrazias.com',
         zellePhone: '+1234567890',
         paypalClientId: '',
         paypalMode: 'sandbox',

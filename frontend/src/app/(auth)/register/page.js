@@ -10,7 +10,7 @@ import Button from '@/components/common/Button/Button';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function RegisterPage() {
-  const { register: signUp, login } = useAuth();
+  const { register: signUp } = useAuth();
   const router = useRouter();
   const { register, handleSubmit, formState: { errors }, watch, trigger } = useForm({
     mode: 'onBlur',
@@ -21,7 +21,6 @@ export default function RegisterPage() {
   const password = watch('password');
 
   const onSubmit = async (data) => {
-      console.log('📤 Register data:', data);
     if (data.password !== data.confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -30,18 +29,13 @@ export default function RegisterPage() {
     setLoading(true);
     setError('');
     try {
-      // ✅ Register API call
+      // ✅ Register – token auto-stored in AuthContext
       await signUp(data.name, data.email, data.password);
-      toast.success('Account created! Redirecting to dashboard...')
-      // ✅ Auto-login after registration
-      await login(data.email, data.password);
-
-      // ✅ Dashboard redirect
+      // ✅ Direct redirect (no extra login)
       router.push('/dashboard');
     } catch (err) {
-      // ✅ Handle email already exists
       const msg = err.response?.data?.message || err.message || 'Registration failed.';
-      if (msg.includes('already exists') || msg.includes('duplicate') || err.response?.status === 400) {
+      if (msg.includes('already exists') || err.response?.status === 409) {
         setError('This email is already registered. Please login instead.');
       } else {
         setError(msg);

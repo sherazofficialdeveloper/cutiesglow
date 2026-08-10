@@ -7,7 +7,7 @@ const settingsSchema = new mongoose.Schema(
     // General Settings
     siteName: {
       type: String,
-      default: 'Cutish by Razias',
+      default: 'CutiesGlow by Razias',
     },
     tagline: {
       type: String,
@@ -15,7 +15,7 @@ const settingsSchema = new mongoose.Schema(
     },
     contactEmail: {
       type: String,
-      default: 'info@cutishbyrazias.com',
+      default: 'info@CutiesGlowbyrazias.com',
     },
     contactPhone: {
       type: String,
@@ -29,7 +29,7 @@ const settingsSchema = new mongoose.Schema(
     // Zelle Settings
     zelleEmail: {
       type: String,
-      default: 'pay@cutishbyrazias.com',
+      default: 'pay@CutiesGlowbyrazias.com',
     },
     zellePhone: {
       type: String,

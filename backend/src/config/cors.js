@@ -4,8 +4,8 @@ const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
       process.env.FRONTEND_URL || 'http://localhost:3000',
-      'https://cutishbyrazias.com',
-      'https://www.cutishbyrazias.com',
+      'https://CutiesGlowbyrazias.com',
+      'https://www.CutiesGlowbyrazias.com',
     ];
     
     // Allow requests with no origin (like mobile apps, Postman)
