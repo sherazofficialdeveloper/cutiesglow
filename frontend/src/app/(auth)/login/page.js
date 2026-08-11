@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import Button from '@/components/common/Button/Button';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const router = useRouter();
   const { register, handleSubmit, formState: { errors }, trigger } = useForm({
     mode: 'onBlur',
@@ -18,15 +18,20 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // ✅ Redirect to dashboard if already logged in
+  useEffect(() => {
+    if (user) {
+      router.push('/dashboard');
+    }
+  }, [user, router]);
+
   const onSubmit = async (data) => {
     setLoading(true);
     setError('');
     try {
       await login(data.email, data.password);
-      // ✅ Login successful – dashboard redirect
-      router.push('/dashboard');
+      // ✅ No manual redirect needed — useEffect will handle it
     } catch (err) {
-      // ✅ Handle API error
       const message = err.response?.data?.message || err.message || 'Invalid email or password. Please try again.';
       setError(message);
     } finally {

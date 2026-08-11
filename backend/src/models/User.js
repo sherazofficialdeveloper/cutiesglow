@@ -1,7 +1,7 @@
 // backend/src/models/User.js
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import crypto from 'crypto'; // ✅ Direct require/import
+import crypto from 'crypto';
 
 const userSchema = new mongoose.Schema(
   {
@@ -25,8 +25,16 @@ const userSchema = new mongoose.Schema(
     isActive: { type: Boolean, default: true },
     isEmailVerified: { type: Boolean, default: false },
     emailVerificationToken: { type: String },
+    
+    // ✅ OTP Password Reset Fields
+    resetPasswordOTP: { type: String },
+    resetPasswordOTPExpires: { type: Date },
+    resetPasswordOTPCooldown: { type: Date },
+    
+    // Legacy token fields (keep for backward compatibility)
     resetPasswordToken: { type: String },
     resetPasswordExpires: { type: Date },
+    
     lastLogin: { type: Date },
     preferences: {
       currency: { type: String, default: 'USD' },
@@ -54,7 +62,21 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// ✅ FIXED: Generate password reset token (crypto imported directly)
+// ✅ Generate OTP for password reset (6-digit number)
+userSchema.methods.generateResetPasswordOTP = function () {
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  this.resetPasswordOTP = otp;
+  this.resetPasswordOTPExpires = Date.now() + 600000; // 10 minutes
+  return otp;
+};
+
+// ✅ Check if OTP is valid
+userSchema.methods.isResetPasswordOTPValid = function (otp) {
+  return this.resetPasswordOTP === otp && 
+         this.resetPasswordOTPExpires > Date.now();
+};
+
+// Legacy token methods (keep)
 userSchema.methods.generatePasswordResetToken = function () {
   const token = crypto.randomBytes(20).toString('hex');
   this.resetPasswordToken = token;
@@ -62,7 +84,6 @@ userSchema.methods.generatePasswordResetToken = function () {
   return token;
 };
 
-// ✅ FIXED: Generate email verification token (crypto imported directly)
 userSchema.methods.generateEmailVerificationToken = function () {
   const token = crypto.randomBytes(20).toString('hex');
   this.emailVerificationToken = token;
@@ -77,6 +98,8 @@ userSchema.set('toJSON', {
     delete ret.resetPasswordToken;
     delete ret.resetPasswordExpires;
     delete ret.emailVerificationToken;
+    delete ret.resetPasswordOTP;
+    delete ret.resetPasswordOTPExpires;
     return ret;
   },
 });

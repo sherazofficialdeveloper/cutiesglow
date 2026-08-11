@@ -1,72 +1,84 @@
-// frontend/src/services/authService.js
-import apiClient from './api';
+import api from './api';
 import { STORAGE_KEYS } from '@/config/constants';
 
-// -------- Login --------
+// ==================== AUTHENTICATION ====================
+
 export const login = async (email, password) => {
-  const response = await apiClient.post('/auth/login', { email, password });
-  // Response: { user, token }
+  const response = await api.post('/auth/login', { email, password });
   return response.data;
 };
 
-// -------- Register --------
 export const register = async (name, email, password) => {
-  const response = await apiClient.post('/auth/register', { name, email, password });
-  // Response: { user, token }
+  const response = await api.post('/auth/register', { name, email, password });
   return response.data;
 };
 
-// -------- Get Current User --------
-export const getMe = async () => {
-  const response = await apiClient.get('/auth/me');
-  // Response: { user }
-  return response.data;
-};
-
-// -------- Forgot Password --------
-export const forgotPassword = async (email) => {
-  const response = await apiClient.post('/auth/forgot-password', { email });
-  return response.data;
-};
-
-// -------- Reset Password --------
-export const resetPassword = async (token, password) => {
-  const response = await apiClient.post('/auth/reset-password', { token, password });
-  return response.data;
-};
-
-// -------- Verify Email --------
-export const verifyEmail = async (token) => {
-  const response = await apiClient.post('/auth/verify-email', { token });
-  return response.data;
-};
-
-// -------- Update Profile --------
-export const updateProfile = async (data) => {
-  const response = await apiClient.put('/auth/profile', data);
-  return response.data;
-};
-
-// -------- Logout --------
 export const logout = async () => {
-  try {
-    await apiClient.post('/auth/logout');
-  } catch (error) {
-    console.warn('Logout API error (ignored):', error);
-  }
-  // Local cleanup (token removal handled in context)
-  localStorage.removeItem(STORAGE_KEYS.TOKEN);
-  localStorage.removeItem(STORAGE_KEYS.USER);
+  const response = await api.post('/auth/logout');
+  return response.data;
 };
 
-// -------- Default Export --------
-export default {
+export const getMe = async () => {
+  const response = await api.get('/auth/me');
+  return response.data;
+};
+
+export const verifyEmail = async (token) => {
+  const response = await api.post('/auth/verify-email', { token });
+  return response.data;
+};
+
+// ==================== OTP PASSWORD RESET ====================
+
+// ✅ Send OTP for password reset
+export const sendOTP = async (email) => {
+  const response = await api.post('/auth/forgot-password-otp', { email });
+  return response.data;
+};
+
+// ✅ Resend OTP
+export const resendOTP = async (email) => {
+  const response = await api.post('/auth/resend-otp', { email });
+  return response.data;
+};
+
+// ✅ Reset password using OTP
+export const resetPasswordWithOTP = async (email, otp, newPassword) => {
+  const response = await api.post('/auth/reset-password-otp', { 
+    email, 
+    otp, 
+    newPassword 
+  });
+  return response.data;
+};
+
+// ==================== LEGACY (If needed) ====================
+
+// ✅ Legacy forgot password (token-based)
+export const forgotPassword = async (email) => {
+  const response = await api.post('/auth/forgot-password', { email });
+  return response.data;
+};
+
+// ✅ Legacy reset password (token-based)
+export const resetPassword = async (token, newPassword) => {
+  const response = await api.post('/auth/reset-password', { token, newPassword });
+  return response.data;
+};
+
+// ==================== DEFAULT EXPORT ====================
+
+const authService = {
   login,
   register,
+  logout,
   getMe,
+  verifyEmail,
+  sendOTP,
+  resendOTP,
+  resetPasswordWithOTP,
   forgotPassword,
   resetPassword,
-  verifyEmail,
-  updateProfile,
-  logout,
 };
+
+export default authService;

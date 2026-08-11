@@ -25,6 +25,7 @@ export const validate = (validations) => {
       value: err.value,
     }));
 
+    // ✅ Send 400 with detailed errors
     res.status(400).json({
       success: false,
       message: 'Validation failed',

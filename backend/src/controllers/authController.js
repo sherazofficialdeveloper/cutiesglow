@@ -1,6 +1,6 @@
 // backend/src/controllers/authController.js
 
-console.log('🔥🔥🔥 authController.js LOADED - Version 3 🔥🔥🔥');
+console.log('🔥🔥🔥 authController.js LOADED - OTP Version 🔥🔥🔥');
 
 import User from '../models/User.js';
 import { generateToken } from '../config/jwt.js';
@@ -15,16 +15,16 @@ import {
 } from '../validations/authValidation.js';
 import { validate } from '../middleware/validate.js';
 import { comparePassword, hashPassword } from '../utils/password.js';
+import * as authService from '../services/authService.js';
 
 /**
  * Register a new user
  * POST /api/auth/register
  */
 export const register = async (req, res, next) => {
-  console.log('🟢 [1] Register function STARTED');
+  console.log('🟢 Register function STARTED');
   
   try {
-    // Validate input
     const errors = validate(registerSchema, req.body);
     if (errors.length > 0) {
       console.log('❌ Validation errors:', errors);
@@ -37,7 +37,6 @@ export const register = async (req, res, next) => {
     const { name, email, password, phone } = req.body;
     console.log(`🟢 [2] Registering user: ${email}`);
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       console.log(`❌ User already exists: ${email}`);
@@ -47,10 +46,8 @@ export const register = async (req, res, next) => {
       });
     }
 
-    // Hash password
     const hashedPassword = await hashPassword(password);
 
-    // Create user
     const user = new User({
       name,
       email: email.toLowerCase(),
@@ -61,10 +58,6 @@ export const register = async (req, res, next) => {
     await user.save();
     console.log(`🟢 [3] User saved: ${user.email}`);
 
-    // ✅ Send welcome email WITHOUT awaiting – non-blocking
-    console.log(`📧 [4] ATTEMPTING to send welcome email to: ${user.email}`);
-    
-    // Call the email function and log result
     sendWelcomeEmail(user)
       .then((result) => {
         console.log(`✅ [5] Welcome email SENT successfully to: ${user.email}`);
@@ -75,7 +68,6 @@ export const register = async (req, res, next) => {
         console.error('Full error:', err);
       });
 
-    // Generate token
     const token = generateToken({ id: user._id, email: user.email });
     console.log(`🟢 [6] Token generated for: ${user.email}`);
 
@@ -106,19 +98,16 @@ export const register = async (req, res, next) => {
  */
 export const login = async (req, res, next) => {
   console.log('🔵 Login function called');
-  try {
-    const errors = validate(loginSchema, req.body);
-    if (errors.length > 0) {
-      return res.status(400).json({
-        success: false,
-        errors,
-      });
-    }
+  console.log('📥 Request body:', req.body);
 
+  try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email: email.toLowerCase() });
+    // ✅ Include password field
+    const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
+
     if (!user) {
+      console.log('❌ User not found:', email);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password',
@@ -127,6 +116,7 @@ export const login = async (req, res, next) => {
 
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
+      console.log('❌ Password mismatch for:', email);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password',
@@ -137,6 +127,8 @@ export const login = async (req, res, next) => {
     await user.save();
 
     const token = generateToken({ id: user._id, email: user.email });
+
+    console.log('✅ Login successful for:', email);
 
     res.json({
       success: true,
@@ -153,7 +145,7 @@ export const login = async (req, res, next) => {
       },
     });
   } catch (error) {
-    console.error('Login error:', error);
+    console.error('❌ Login error:', error);
     next(error);
   }
 };
@@ -196,7 +188,7 @@ export const logout = async (req, res) => {
 };
 
 /**
- * Forgot password - send reset email
+ * Forgot password - send reset email (Legacy Token-based)
  * POST /api/auth/forgot-password
  */
 export const forgotPassword = async (req, res, next) => {
@@ -232,7 +224,7 @@ export const forgotPassword = async (req, res, next) => {
 };
 
 /**
- * Reset password
+ * Reset password with token (Legacy)
  * POST /api/auth/reset-password
  */
 export const resetPassword = async (req, res, next) => {
@@ -267,6 +259,93 @@ export const resetPassword = async (req, res, next) => {
     res.json({
       success: true,
       message: 'Password reset successful',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// ============================================================
+// ✅ NEW OTP-BASED PASSWORD RESET CONTROLLERS
+// ============================================================
+
+/**
+ * Send OTP for password reset
+ * POST /api/auth/forgot-password-otp
+ */
+export const sendOTP = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email is required',
+      });
+    }
+
+    const result = await authService.sendPasswordResetOTP(email);
+    
+    res.json({
+      success: true,
+      message: result.message,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * ✅ UPDATED: Verify OTP and reset password (with logging)
+ * POST /api/auth/reset-password-otp
+ */
+export const verifyOTPAndReset = async (req, res, next) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    if (!email || !otp || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email, OTP, and new password are required',
+      });
+    }
+
+    console.log('🔐 Verifying OTP and resetting password for:', email);
+
+    const result = await authService.verifyOTPAndResetPassword(email, otp, newPassword);
+    
+    console.log('✅ Password reset successful for:', email);
+
+    res.json({
+      success: true,
+      message: result.message,
+    });
+  } catch (error) {
+    console.error('❌ Reset error:', error);
+    next(error);
+  }
+};
+
+/**
+ * Resend OTP
+ * POST /api/auth/resend-otp
+ */
+export const resendOTP = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email is required',
+      });
+    }
+
+    const result = await authService.resendPasswordResetOTP(email);
+    
+    res.json({
+      success: true,
+      message: result.message,
     });
   } catch (error) {
     next(error);

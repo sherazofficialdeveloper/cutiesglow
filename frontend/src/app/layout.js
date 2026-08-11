@@ -11,14 +11,14 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
 
 export const metadata = {
-  title: 'CutiesGlow by Razia\'s – Premium Skincare',
+  title: 'CutiesGlow  – Premium Skincare',
   description: 'Premium skincare products made with natural ingredients for your daily glow routine.',
   keywords: 'skincare, premium, natural, glow, CutiesGlow, razias',
   openGraph: {
-    title: 'CutiesGlow by Razia\'s – Premium Skincare',
+    title: 'CutiesGlow  – Premium Skincare',
     description: 'Premium skincare products made with natural ingredients for your daily glow routine.',
     url: 'https://CutiesGlowbyrazias.com',
-    siteName: 'CutiesGlow by Razia\'s',
+    siteName: 'CutiesGlow ',
     images: [
       {
         url: '/images/og-image.jpg',
@@ -31,7 +31,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CutiesGlow by Razia\'s – Premium Skincare',
+    title: 'CutiesGlow  – Premium Skincare',
     description: 'Premium skincare products made with natural ingredients for your daily glow routine.',
     images: ['/images/og-image.jpg'],
   },
